@@ -5,6 +5,53 @@ admin.initializeApp();
 
 const db = admin.firestore();
 
+// Health check endpoint
+exports.health = functions.https.onRequest(async (req, res) => {
+    try {
+        // Check Firestore connectivity
+        const healthCheck = {
+            status: 'healthy',
+            timestamp: new Date().toISOString(),
+            service: 'instagram-clone-backend',
+            version: '1.0.0',
+            checks: {
+                firestore: 'unknown',
+                auth: 'unknown'
+            }
+        };
+
+        // Test Firestore connection
+        try {
+            await db.collection('_health_check').doc('test').set({
+                timestamp: admin.firestore.FieldValue.serverTimestamp()
+            });
+            healthCheck.checks.firestore = 'healthy';
+        } catch (error) {
+            healthCheck.checks.firestore = 'unhealthy';
+            healthCheck.status = 'degraded';
+        }
+
+        // Test Auth service
+        try {
+            await admin.auth().listUsers(1);
+            healthCheck.checks.auth = 'healthy';
+        } catch (error) {
+            healthCheck.checks.auth = 'unhealthy';
+            healthCheck.status = 'degraded';
+        }
+
+        const statusCode = healthCheck.status === 'healthy' ? 200 : 503;
+        res.status(statusCode).json(healthCheck);
+    } catch (error) {
+        res.status(503).json({
+            status: 'unhealthy',
+            timestamp: new Date().toISOString(),
+            service: 'instagram-clone-backend',
+            error: error.message
+        });
+    }
+});
+
 exports.addLike = functions.firestore.document('/posts/{creatorId}/userPosts/{postId}/likes/{userId}')
     .onCreate((snap, context) => {
         return db
