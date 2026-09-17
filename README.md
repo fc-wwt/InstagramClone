@@ -58,7 +58,7 @@
 
 ![alt text](images/mockup.png "Title")
 
-This repo contains the project made in my youtube chanel called simcoder. This project is a clone of the Instagram android app.
+This repo contains the project made in my youtube channel called simcoder. This project is a clone of the Instagram android app.
 
 It is made using React Native with Expo using firebase services (authentication, firestore and storage).
 The admin panel is made with ReactJS.
