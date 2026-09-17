@@ -34,16 +34,17 @@ flowchart TB
         E[Firebase Firestore<br/>NoSQL Database]
         F[Firebase Storage<br/>Media Storage]
         G[Expo Notifications<br/>Push Notifications]
+        H[Health Endpoint<br/>Service Monitoring]
     end
     
     subgraph "Data Collections"
-        H[(Users)]
-        I[(Posts)]
-        J[(Comments)]
-        K[(Likes)]
-        L[(Following)]
-        M[(Chats)]
-        N[(Feed)]
+        I[(Users)]
+        J[(Posts)]
+        K[(Comments)]
+        L[(Likes)]
+        M[(Following)]
+        N[(Chats)]
+        O[(Feed)]
     end
     
     A -->|Auth| C
@@ -57,16 +58,19 @@ flowchart TB
     D -->|Triggers| E
     D -->|Update Counters| E
     
-    E --> H
+    H -->|Monitor| E
+    H -->|Monitor| C
+    
     E --> I
     E --> J
     E --> K
     E --> L
     E --> M
     E --> N
+    E --> O
     
-    F -->|Profile Images| H
-    F -->|Post Media| I
+    F -->|Profile Images| I
+    F -->|Post Media| J
     
     style A fill:#61dafb
     style B fill:#61dafb
@@ -75,6 +79,7 @@ flowchart TB
     style E fill:#ffa726
     style F fill:#ffa726
     style G fill:#000000,color:#fff
+    style H fill:#4caf50
 ```
 
 ## Component Architecture
@@ -146,6 +151,28 @@ flowchart TD
     style F fill:#4caf50
 ```
 
+### HTTP Endpoints
+
+The backend exposes the following HTTP endpoints:
+
+#### Health Check Endpoint
+
+**Purpose**: Monitor backend service availability and health status
+
+**Endpoint**: `GET /health`
+
+**Features**:
+- Checks Firestore database connectivity
+- Verifies Firebase Authentication service status
+- Returns detailed health status for each component
+- Suitable for integration with monitoring tools (UptimeRobot, Pingdom, etc.)
+
+**Response Codes**:
+- `200 OK`: All services healthy
+- `503 Service Unavailable`: One or more services degraded or unhealthy
+
+For detailed documentation, see [Health Endpoint Documentation](HEALTH_ENDPOINT.md).
+
 ## Data Model
 
 ### Core Collections
@@ -197,6 +224,7 @@ flowchart TD
 - **Database**: Firebase Firestore (NoSQL)
 - **Storage**: Firebase Storage
 - **Authentication**: Firebase Authentication
+- **Monitoring**: Health check endpoint for service status
 
 ## Security
 
@@ -241,6 +269,11 @@ flowchart TD
    - Content moderation
    - Ban/unban users
 
+6. **Monitoring & Health Checks**
+   - Health endpoint for service monitoring
+   - Firestore connectivity checks
+   - Authentication service verification
+
 ## Deployment
 
 - **Mobile App**: Expo managed workflow
@@ -248,6 +281,23 @@ flowchart TD
 - **Backend**: Firebase Cloud Functions (serverless)
 - **Database**: Firebase Firestore (managed)
 - **Storage**: Firebase Storage (managed)
+
+## Monitoring
+
+### Health Checks
+
+The backend includes a comprehensive health check endpoint that monitors:
+- Firestore database connectivity
+- Firebase Authentication service status
+- Overall system health
+
+This endpoint can be integrated with monitoring services for:
+- Uptime monitoring
+- Alerting on service degradation
+- Performance tracking
+- Operational dashboards
+
+See [Health Endpoint Documentation](HEALTH_ENDPOINT.md) for integration details.
 
 ## Scalability Considerations
 
