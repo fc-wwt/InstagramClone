@@ -252,6 +252,34 @@ export function fetchUsersFollowingLikes(uid, postId) {
     })
 }
 
+/**
+ * Select a sponsored post from the feed
+ * Priority: 
+ * 1. Posts marked with isSponsored: true
+ * 2. If none exist, randomly select one from the feed
+ * 
+ * @param {Array} posts - Array of posts
+ * @returns {Object|null} - Selected sponsored post or null
+ */
+export function selectSponsoredPost(posts) {
+    if (!posts || posts.length === 0) {
+        return null;
+    }
+
+    // First, check if any posts are explicitly marked as sponsored
+    const sponsoredPosts = posts.filter(post => post.isSponsored === true);
+    
+    if (sponsoredPosts.length > 0) {
+        // If multiple sponsored posts exist, return the first one
+        // (or you could randomize: sponsoredPosts[Math.floor(Math.random() * sponsoredPosts.length)])
+        return sponsoredPosts[0];
+    }
+
+    // Fallback: randomly select one post from the feed
+    const randomIndex = Math.floor(Math.random() * posts.length);
+    return { ...posts[randomIndex], isSponsoredFallback: true };
+}
+
 
 
 export function queryUsersByUsername(username) {
@@ -295,10 +323,3 @@ export function deletePost(item) {
         })
     })
 }
-
-
-
-
-
-
-
