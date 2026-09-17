@@ -36,6 +36,7 @@
       <ul>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#features">Features</a></li>
       </ul>
     </li>
     <li>
@@ -74,6 +75,22 @@ You can follow the youtube series in the following [link](https://www.youtube.co
 For a detailed overview of the system architecture, including component interactions and data flow, see the [Architecture Documentation](docs/ARCHITECTURE.md).
 
 ![System Architecture](docs/architecture-flowchart.svg)
+
+### ✨ Features
+
+- **User Authentication** - Email/password registration and login
+- **Post Creation** - Share photos and videos with captions
+- **Social Interactions** - Like, comment, and share posts
+- **Follow System** - Follow/unfollow users
+- **Direct Messaging** - Real-time chat with other users
+- **User Search** - Find users by username
+- **Push Notifications** - Get notified of likes, comments, and messages
+- **Admin Panel** - Manage users and content
+- **🆕 Sponsored Posts** - Highlight posts with special visual treatment
+  - Intelligent selection: prioritizes posts marked as sponsored, falls back to random selection
+  - Visual indicators: gold border, star badge, and header label
+  - Always displays one sponsored post at the top of the feed
+  - See [Sponsored Posts Documentation](docs/SPONSORED_POSTS.md) for details
 
 ## 🆕 Getting Started
 
