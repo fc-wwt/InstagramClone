@@ -15,6 +15,14 @@ Complete system architecture overview including:
 - Key features
 - Scalability considerations
 
+### [API Reference](./API_REFERENCE.md)
+Complete API endpoint reference including:
+- HTTP endpoints
+- Firestore trigger functions
+- Deployment instructions
+- Testing procedures
+- Security notes
+
 ### [Health Endpoint Documentation](./HEALTH_ENDPOINT.md)
 Health monitoring endpoint documentation including:
 - Endpoint specifications
@@ -23,6 +31,14 @@ Health monitoring endpoint documentation including:
 - Usage examples
 - Monitoring integration
 - Troubleshooting guide
+
+### [Health Endpoint Flow](./HEALTH_ENDPOINT_FLOW.md)
+Visual diagrams and flow charts for the health endpoint:
+- Request flow sequence diagrams
+- State machine diagrams
+- Component health check logic
+- Monitoring integration flows
+- Error handling flows
 
 ## 🏗️ System Overview
 
@@ -35,6 +51,7 @@ This Instagram Clone is a full-stack social media application with three main co
 ## 🚀 Quick Links
 
 - [Main README](../README.md)
+- [Backend Functions README](../backend/functions/README.md)
 - [Frontend Setup](../frontend/README.md)
 - [Admin Panel Setup](../admin/README.md)
 - [Firebase Setup Guide](https://github.com/SimCoderYoutube/InstagramClone/wiki/Setup-your-project)
@@ -49,6 +66,8 @@ graph TB
     A --> E[Storage]
     F[Admin Panel] --> B
     F --> D
+    G[Health Endpoint] --> D
+    G --> B
     C --> D
     
     style A fill:#61dafb
@@ -57,6 +76,7 @@ graph TB
     style C fill:#ffa726
     style D fill:#ffa726
     style E fill:#ffa726
+    style G fill:#4caf50
 ```
 
 ## 🔧 Key Technologies
@@ -68,6 +88,23 @@ graph TB
 - **Storage**: Firebase Storage
 - **Auth**: Firebase Authentication
 - **Notifications**: Expo Notifications
+- **Monitoring**: Health check endpoint
+
+## 🔌 API Endpoints
+
+### HTTP Endpoints
+
+- **GET /health** - Health check endpoint for monitoring service availability
+
+### Firestore Triggers
+
+- **addLike** - Increments post like count
+- **removeLike** - Decrements post like count
+- **addFollower** - Updates follower/following counts
+- **removeFollower** - Updates follower/following counts
+- **addComment** - Increments post comment count
+
+See [API Reference](./API_REFERENCE.md) for complete details.
 
 ## 📖 Additional Resources
 
