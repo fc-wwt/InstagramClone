@@ -45,6 +45,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li><a href="#api-endpoints">API Endpoints</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#support">Support</a></li>
@@ -88,6 +89,30 @@ For a detailed overview of the system architecture, including component interact
 - ### **Installation**
 
   In order to deploy the project you'll need to follow the [wiki page](https://github.com/SimCoderYoutube/InstagramClone/wiki/Setup-your-project) dedicated to this effect.
+
+## 🔌 API Endpoints
+
+### Health Check Endpoint
+
+The backend includes a health check endpoint for monitoring service availability and status.
+
+**Endpoint:** `GET /health`
+
+**Response:**
+```json
+{
+  "status": "healthy",
+  "timestamp": "2024-01-15T10:30:00.000Z",
+  "service": "instagram-clone-backend",
+  "version": "1.0.0",
+  "checks": {
+    "firestore": "healthy",
+    "auth": "healthy"
+  }
+}
+```
+
+For detailed documentation on the health endpoint, including usage examples and monitoring integration, see [Health Endpoint Documentation](docs/HEALTH_ENDPOINT.md).
 
 ## 🚧 Roadmap
 
