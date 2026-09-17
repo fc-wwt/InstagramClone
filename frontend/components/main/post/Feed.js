@@ -6,13 +6,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Divider, Snackbar } from 'react-native-paper'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { deletePost, fetchFeedPosts, reload, sendNotification } from '../../../redux/actions/index'
+import { deletePost, fetchFeedPosts, reload, sendNotification, selectSponsoredPost } from '../../../redux/actions/index'
 import { container, utils } from '../../styles'
 import Post from './Post'
 require('firebase/firestore')
 
 function Feed(props) {
     const [posts, setPosts] = useState([]);
+    const [sponsoredPost, setSponsoredPost] = useState(null);
     const [refreshing, setRefreshing] = useState(false)
     const [unmutted, setUnmutted] = useState(null)
     const [inViewPort, setInViewPort] = useState(0)
@@ -26,10 +27,26 @@ function Feed(props) {
                 return y.creation.toDate() - x.creation.toDate();
             })
 
-            setPosts(props.feed);
+            // Select sponsored post
+            const selectedSponsored = selectSponsoredPost(props.feed);
+            setSponsoredPost(selectedSponsored);
+
+            // Filter out the sponsored post from the regular feed to avoid duplication
+            let regularPosts = props.feed;
+            if (selectedSponsored) {
+                regularPosts = props.feed.filter(post => post.id !== selectedSponsored.id);
+            }
+
+            // Place sponsored post at the top if it exists
+            const finalPosts = selectedSponsored 
+                ? [{ ...selectedSponsored, isDisplayedAsSponsored: true }, ...regularPosts]
+                : regularPosts;
+
+            setPosts(finalPosts);
             setRefreshing(false)
-            for (let i = 0; i < props.feed.length; i++) {
-                if (props.feed[i].type == 0) {
+            
+            for (let i = 0; i < finalPosts.length; i++) {
+                if (finalPosts[i].type == 0) {
                     setUnmutted(i)
                     return;
                 }
@@ -84,7 +101,17 @@ function Feed(props) {
 
                 renderItem={({ item, index }) => (
                     <View key={index}>
-                        <Post route={{ params: { user: item.user, item, index, unmutted, inViewPort, setUnmuttedMain: setUnmutted, setModalShow, feed: true } }} navigation={props.navigation} />
+                        <Post route={{ params: { 
+                            user: item.user, 
+                            item, 
+                            index, 
+                            unmutted, 
+                            inViewPort, 
+                            setUnmuttedMain: setUnmutted, 
+                            setModalShow, 
+                            feed: true,
+                            isSponsored: item.isDisplayedAsSponsored || false
+                        } }} navigation={props.navigation} />
                     </View>
                 )}
             />

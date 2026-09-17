@@ -1,4 +1,4 @@
-import { Entypo, Feather, FontAwesome5 } from '@expo/vector-icons';
+import { Entypo, Feather, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
@@ -11,7 +11,7 @@ import ParsedText from 'react-native-parsed-text';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { deletePost, fetchUserPosts, sendNotification } from '../../../redux/actions/index';
-import { container, text, utils } from '../../styles';
+import { container, text, utils, sponsored } from '../../styles';
 import { timeDifference } from '../../utils';
 import CachedImage from '../random/CachedImage';
 require('firebase/firestore')
@@ -31,6 +31,7 @@ function Post(props) {
     const [isValid, setIsValid] = useState(true);
     const [exists, setExists] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const isSponsored = props.route.params.isSponsored || false;
 
     const isFocused = useIsFocused();
     useEffect(() => {
@@ -206,7 +207,7 @@ function Post(props) {
     }
 
     return (
-        <View style={[container.container, utils.backgroundWhite]}>
+        <View style={[container.container, utils.backgroundWhite, isSponsored ? sponsored.container : null]}>
 
             <View>
                 <View style={[container.horizontal, { alignItems: 'center', padding: 10 }]}>
@@ -234,6 +235,12 @@ function Post(props) {
                         <View style={{ alignSelf: 'center' }}>
                             <Text style={[text.bold, text.medium, { marginBottom: 0 }]} >{user.name}</Text>
                         </View>
+
+                        {isSponsored && (
+                            <View style={sponsored.headerBadge}>
+                                <Text style={sponsored.headerBadgeText}>SPONSORED</Text>
+                            </View>
+                        )}
 
                     </TouchableOpacity>
 
@@ -277,6 +284,13 @@ function Post(props) {
                                         width: WINDOW_WIDTH, backgroundColor: 'black'
                                     }}
                                 />
+
+                                {isSponsored && (
+                                    <View style={sponsored.badge}>
+                                        <MaterialIcons name="star" size={16} color="#000" />
+                                        <Text style={sponsored.badgeText}>Sponsored</Text>
+                                    </View>
+                                )}
 
                                 <TouchableOpacity
                                     style={{ position: 'absolute', borderRadius: 500, backgroundColor: 'black', width: 40, height: 40, alignItems: 'center', justifyContent: 'center', margin: 10, right: 0 }}
@@ -322,18 +336,31 @@ function Post(props) {
                                     style={[container.image]}
                                     source={{ uri: item.downloadURLStill }}
                                 />
+                                {isSponsored && (
+                                    <View style={sponsored.badge}>
+                                        <MaterialIcons name="star" size={16} color="#000" />
+                                        <Text style={sponsored.badgeText}>Sponsored</Text>
+                                    </View>
+                                )}
                             </View>
                         }
 
                     </View>
 
                     :
-
-                    <CachedImage
-                        cacheKey={item.id}
-                        style={container.image}
-                        source={{ uri: item.downloadURL }}
-                    />
+                    <View>
+                        <CachedImage
+                            cacheKey={item.id}
+                            style={container.image}
+                            source={{ uri: item.downloadURL }}
+                        />
+                        {isSponsored && (
+                            <View style={sponsored.badge}>
+                                <MaterialIcons name="star" size={16} color="#000" />
+                                <Text style={sponsored.badgeText}>Sponsored</Text>
+                            </View>
+                        )}
+                    </View>
                 }
 
                 <View style={[utils.padding10, container.horizontal]}>

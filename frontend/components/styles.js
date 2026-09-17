@@ -99,6 +99,56 @@ const utils = StyleSheet.create({
         aspectRatio: 1
     }
 })
+
+const sponsored = StyleSheet.create({
+    container: {
+        borderWidth: 2,
+        borderColor: '#FFD700',
+        borderRadius: 8,
+        marginBottom: 10,
+        shadowColor: '#FFD700',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        elevation: 8,
+    },
+    badge: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        backgroundColor: '#FFD700',
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 12,
+        flexDirection: 'row',
+        alignItems: 'center',
+        zIndex: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    badgeText: {
+        color: '#000',
+        fontWeight: 'bold',
+        fontSize: 11,
+        marginLeft: 4,
+    },
+    headerBadge: {
+        backgroundColor: '#FFD700',
+        paddingHorizontal: 8,
+        paddingVertical: 3,
+        borderRadius: 8,
+        marginLeft: 8,
+    },
+    headerBadgeText: {
+        color: '#000',
+        fontWeight: 'bold',
+        fontSize: 10,
+    }
+})
+
 const navbar = StyleSheet.create({
 
     image: {
@@ -285,4 +335,4 @@ const text = StyleSheet.create({
 
 })
 
-export { container, form, text, utils, navbar }    
+export { container, form, text, utils, navbar, sponsored }    
