@@ -35,6 +35,7 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#architecture">Architecture</a></li>
       </ul>
     </li>
     <li>
@@ -67,6 +68,12 @@ The backend is all NodeJS
 In the [master](https://github.com/SimCoderYoutube/InstagramClone/tree/master) branch you have the redesign project which I was previously selling in my website, however you still have access to the youtube series repo in the [youtube_series](https://github.com/SimCoderYoutube/InstagramClone/tree/youtube_series)
 
 You can follow the youtube series in the following [link](https://www.youtube.com/watch?v=xE8UEX7vXVQ&list=PLxabZQCAe5fgatwOQny9wKJVs4YD6xkf1)
+
+### 🏗️ Architecture
+
+For a detailed overview of the system architecture, including component interactions and data flow, see the [Architecture Documentation](docs/ARCHITECTURE.md).
+
+![System Architecture](docs/architecture-flowchart.svg)
 
 ## 🆕 Getting Started
 

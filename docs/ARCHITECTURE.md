@@ -4,6 +4,18 @@
 
 This Instagram Clone is a full-stack social media application built with React Native (mobile), ReactJS (admin panel), and Firebase backend services.
 
+## High-Level Architecture
+
+The following diagram provides a high-level overview of the system architecture:
+
+![System Architecture](architecture-flowchart.svg)
+
+The architecture consists of three main layers:
+
+1. **Client Layer**: Mobile app (React Native + Expo) and Admin Panel (ReactJS)
+2. **Authentication**: Firebase Authentication for user management
+3. **Backend Services**: Cloud Functions, Firestore Database, Storage, and Push Notifications
+
 ## Architecture Diagram
 
 ```mermaid
