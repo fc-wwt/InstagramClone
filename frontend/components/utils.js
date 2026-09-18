@@ -13,23 +13,28 @@ function timeDifference(current, previous) {
     }
 
     else if (elapsed < msPerHour) {
-        return Math.round(elapsed / msPerMinute) + ' minutes ago';
+        const minutes = Math.round(elapsed / msPerMinute);
+        return minutes === 1 ? '1 minute ago' : minutes + ' minutes ago';
     }
 
     else if (elapsed < msPerDay) {
-        return Math.round(elapsed / msPerHour) + ' hours ago';
+        const hours = Math.round(elapsed / msPerHour);
+        return hours === 1 ? '1 hour ago' : hours + ' hours ago';
     }
 
     else if (elapsed < msPerMonth) {
-        return Math.round(elapsed / msPerDay) + ' days ago';
+        const days = Math.round(elapsed / msPerDay);
+        return days === 1 ? '1 day ago' : days + ' days ago';
     }
 
     else if (elapsed < msPerYear) {
-        return Math.round(elapsed / msPerMonth) + ' months ago';
+        const months = Math.round(elapsed / msPerMonth);
+        return months === 1 ? '1 month ago' : months + ' months ago';
     }
 
     else {
-        return Math.round(elapsed / msPerYear) + ' years ago';
+        const years = Math.round(elapsed / msPerYear);
+        return years === 1 ? '1 year ago' : years + ' years ago';
     }
 }
 

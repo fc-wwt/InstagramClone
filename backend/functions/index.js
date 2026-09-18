@@ -121,3 +121,15 @@ exports.addComment = functions.firestore.document('/posts/{creatorId}/userPosts/
                 commentsCount: admin.firestore.FieldValue.increment(1)
             })
     })
+
+exports.removeComment = functions.firestore.document('/posts/{creatorId}/userPosts/{postId}/comments/{userId}')
+    .onDelete((snap, context) => {
+        return db
+            .collection('posts')
+            .doc(context.params.creatorId)
+            .collection('userPosts')
+            .doc(context.params.postId)
+            .update({
+                commentsCount: admin.firestore.FieldValue.increment(-1)
+            })
+    })
