@@ -103,7 +103,7 @@ function Save(props) {
                     .then((snapshot) => {
 
                         snapshot.forEach((doc) => {
-                            props.sendNotification(doc.data().notificationToken, "New tag", `${props.currentUser.name} Tagged you in a post`, { type: 0, user: firebase.auth().currentUser.uid })
+                            props.sendNotification(doc.data().notificationToken, "New tag", `${props.currentUser.name} Tagged you in a post`, { type: "post", user: firebase.auth().currentUser.uid })
 
                         });
                     })

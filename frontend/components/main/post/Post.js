@@ -143,7 +143,7 @@ function Post(props) {
             .doc(firebase.auth().currentUser.uid)
             .set({})
             .then()
-        props.sendNotification(user.notificationToken, "New Like", `${props.currentUser.name} liked your post`, { type: 0, postId, user: firebase.auth().currentUser.uid })
+        props.sendNotification(user.notificationToken, "New Like", `${props.currentUser.name} liked your post`, { type: "post", postId, user: firebase.auth().currentUser.uid })
 
     }
     const onDislikePress = (userId, postId, item) => {
