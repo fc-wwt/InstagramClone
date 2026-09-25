@@ -91,7 +91,7 @@ function Comment(props) {
             .doc(props.route.params.uid)
             .get()
             .then((snapshot) => {
-                props.sendNotification(snapshot.data().notificationToken, "New Comment", `${props.currentUser.name} Commented on your post`, { type: 0, user: firebase.auth().currentUser.uid })
+                props.sendNotification(snapshot.data().notificationToken, "New Comment", `${props.currentUser.name} Commented on your post`, { type: "post", user: firebase.auth().currentUser.uid })
             })
 
 
@@ -109,21 +109,23 @@ function Comment(props) {
                             <View style={container.horizontal}>
                                 {item.user.image == 'default' ?
                                     (
-                                        <FontAwesome5
-                                            style={[utils.profileImageSmall]}
-                                            name="user-circle" size={35} color="black"
-                                            onPress={() => props.navigation.navigate("Profile", { uid: item.user.uid, username: undefined })} />
+                                        <TouchableOpacity onPress={() => props.navigation.navigate("Profile", { uid: item.user.uid, username: undefined })}>
+                                            <FontAwesome5
+                                                style={[utils.profileImageSmall]}
+                                                name="user-circle" size={35} color="black" />
+                                        </TouchableOpacity>
 
 
                                     )
                                     :
                                     (
-                                        <Image
-                                            style={[utils.profileImageSmall]}
-                                            source={{
-                                                uri: item.user.image
-                                            }}
-                                            onPress={() => props.navigation.navigate("Profile", { uid: item.user.uid, username: undefined })} />
+                                        <TouchableOpacity onPress={() => props.navigation.navigate("Profile", { uid: item.user.uid, username: undefined })}>
+                                            <Image
+                                                style={[utils.profileImageSmall]}
+                                                source={{
+                                                    uri: item.user.image
+                                                }} />
+                                        </TouchableOpacity>
 
                                     )
                                 }

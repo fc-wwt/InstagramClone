@@ -26,13 +26,13 @@ function Main(props) {
     if (lastNotificationResponse != null && lastNotificationResponse != lastNot) {
         setLastNot(lastNotificationResponse)
         switch (lastNotificationResponse.notification.request.content.data.type) {
-            case 0:
+            case "post":
                 props.navigation.navigate("Post", { item: lastNotificationResponse.notification.request.content.data.postId, user: lastNotificationResponse.notification.request.content.data.user, notification: true })
                 break;
-            case 1:
+            case "chat":
                 props.navigation.navigate("Chat", { user: lastNotificationResponse.notification.request.content.data.user, notification: true })
                 break;
-            case 2:
+            case "profile":
                 props.navigation.navigate("ProfileOther", { uid: lastNotificationResponse.notification.request.content.data.user, username: undefined, notification: true })
                 break;
         }
