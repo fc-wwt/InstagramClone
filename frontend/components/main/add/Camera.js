@@ -189,12 +189,8 @@ export default function VideoScreen(props) {
                 <View
                     style={[{ aspectRatio: 1 / 1, height: WINDOW_WIDTH }]}>
                     <Image
-                        style={{ flex: 1 }}
-                        source={{ uri: galleryPickedImage.uri }}
-
                         style={[{ aspectRatio: 1 / 1, height: WINDOW_WIDTH }]}
-                        ratio={'1:1'}
-
+                        source={{ uri: galleryPickedImage.uri }}
                     />
                 </View>
                 <View style={{ justifyContent: 'flex-end', alignItems: 'center', marginRight: 20, marginVertical: 10, flexDirection: 'row' }}>
@@ -248,10 +244,9 @@ export default function VideoScreen(props) {
                 {isFocused ?
                     <Camera
                         ref={cameraRef}
-                        style={{ flex: 1 }}
+                        style={[{ aspectRatio: 1 / 1, height: WINDOW_WIDTH }]}
                         type={cameraType}
                         flashMode={isFlash ? Camera.Constants.FlashMode.torch : Camera.Constants.FlashMode.off}
-                        style={[{ aspectRatio: 1 / 1, height: WINDOW_WIDTH }]}
                         ratio={'1:1'}
                         onCameraReady={onCameraReady}
                     />
