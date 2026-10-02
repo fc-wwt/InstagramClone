@@ -17,10 +17,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import Users from './Users';
 import User from './User';
 import Post from './Post';
+import NotFound from './NotFound';
 import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -160,10 +161,13 @@ export default function Home() {
                 </Drawer>
                 <main className={classes.content}>
                     <div style={{ width: '100%', marginTop: '100px' }}>
-                        <Route path="/" exact component={Users} />
-                        <Route path="/Users" exact component={Users} />
-                        <Route path="/user/:id" exact component={User} />
-                        <Route path="/post/:id/:uid" exact component={Post} />
+                        <Switch>
+                            <Route path="/" exact component={Users} />
+                            <Route path="/Users" exact component={Users} />
+                            <Route path="/user/:id" exact component={User} />
+                            <Route path="/post/:id/:uid" exact component={Post} />
+                            <Route component={NotFound} />
+                        </Switch>
                     </div>
                 </main>
             </div>
